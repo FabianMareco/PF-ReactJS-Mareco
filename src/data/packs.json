@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "nombre": "Clase suelta",
+        "descripcion": "Acceso a una clase a elección (danza, yoga, stretching, etc.)",
+        "precio": 9999,
+        "tipo": "unidad",
+        "categoria": "clases"
+    },
+    {
+        "id": 2,
+        "nombre": "Pack 4 clases",
+        "descripcion": "4 clases para usar cuando quieras, ahorrá un 25%",
+        "precio": 30000,
+        "tipo": "paquete",
+        "categoria": "clases"
+    },
+    {
+        "id": 3,
+        "nombre": "Pack 8 clases",
+        "descripcion": "8 clases con 38% de descuento",
+        "precio": 50000,
+        "tipo": "paquete",
+        "categoria": "clases"
+    },
+    {
+        "id": 4,
+        "nombre": "Pase Ilimitado Mensual",
+        "descripcion": "Acceso ilimitado a todas las clases de movimiento por 30 días",
+        "precio": 70000,
+        "tipo": "suscripcion",
+        "categoria": "clases"
+    },
+    {
+        "id": 11,
+        "nombre": "Pase Anual",
+        "descripcion": "Acceso ilimitado a todas las clases de movimiento por 12 meses (2 meses gratis)",
+        "precio": 650000,
+        "tipo": "suscripcion",
+        "categoria": "clases"
+    },
+    {
+        "id": 5,
+        "nombre": "Curso de Nutrición Deportiva",
+        "descripcion": "Aprende los fundamentos de la alimentación para deportistas",
+        "precio": 20000,
+        "tipo": "unidad",
+        "categoria": "nutricion"
+    },
+    {
+        "id": 6,
+        "nombre": "Curso de Alimentación Saludable",
+        "descripcion": "Descubre cómo mejorar tu dieta diaria",
+        "precio": 20000,
+        "tipo": "unidad",
+        "categoria": "nutricion"
+    },
+    {
+        "id": 7,
+        "nombre": "Curso de Suplementación Deportiva",
+        "descripcion": "Conoce cuándo y cómo usar suplementos",
+        "precio": 20000,
+        "tipo": "unidad",
+        "categoria": "nutricion"
+    },
+    {
+        "id": 8,
+        "nombre": "Pack 3 Cursos de Nutrición",
+        "descripcion": "Los tres cursos de nutrición juntos con 17% de descuento",
+        "precio": 50000,
+        "tipo": "paquete",
+        "categoria": "nutricion"
+    },
+    {
+        "id": 9,
+        "nombre": "Asesoría Nutricional Personalizada",
+        "descripcion": "Consulta virtual + plan nutricional mensual",
+        "precio": 50000,
+        "tipo": "servicio",
+        "categoria": "nutricion"
+    },
+    {
+        "id": 10,
+        "nombre": "Pack Cursos + Asesoría",
+        "descripcion": "Los 3 cursos de nutrición + asesoría personalizada (ahorro 25%)",
+        "precio": 75000,
+        "tipo": "paquete",
+        "categoria": "nutricion"
+    }
+]
