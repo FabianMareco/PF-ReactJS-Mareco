@@ -16,6 +16,7 @@ merchandising y packs de clases de movimiento y nutrición.
 | AOS | Animaciones al hacer scroll |
 
 ## 📁 Estructura del proyecto
+```
 src/
 ├── components/
 │   ├── Navbar.jsx
@@ -44,6 +45,7 @@ src/
 ├── data/
 │   └── packs.json
 └── App.jsx / main.jsx
+```
 
 ## 🔧 Instalación
 
