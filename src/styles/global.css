@@ -234,7 +234,6 @@ h4 {
 }
 
 .card-title {
-    text-shadow: 2px 2px 4px white;
     text-align: center;
 }
 
@@ -460,12 +459,10 @@ h4 {
     transform: translateY(-8px);
 }
 .card-body {
-    background-color: rgba(0,0,0,0.5);
     border-radius: 0 0 12px 12px;
 }
 .card-title, .card-text {
     color: white;
-    text-shadow: 1px 1px 2px black;
 }
 .btn-light {
     background-color: #f8f9fa;
@@ -495,7 +492,6 @@ h4 {
 .card-orange-1 .card-title, .card-orange-2 .card-title,
 .card-yellow-1 .card-title {
   color: white;
-  text-shadow: 1px 1px 2px black;
 }
 .card .card-text {
   color: inherit;
@@ -510,6 +506,7 @@ h4 {
   margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   font-size: 1.5rem;
+  text-align: center;
 }
 /* Packs normales (clase suelta, pack 4, pack 8) */
 .packs-row-normal {
@@ -674,30 +671,14 @@ h4 {
   }
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  @font-face {
-    font-family: 'Yes Free';
-    src: url('/fonts/Yes Free.ttf');
-  }
-  @font-face {
-    font-family: 'Kocheng';
-    src: url('/fonts/Kocheng.ttf');
-  }
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
 }
-
-@layer components {
-  .navbar-brand {
-    @apply font-['Yes_Free'] text-7xl text-gray-900;
-    text-shadow: 5px 5px 5px gold, 10px 10px 10px rgb(143,45,86), 15px 15px 15px ivory;
-  }
-  .product-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2;
-  }
-  .btn-primary {
-    @apply bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition;
-  }
+@media (min-width: 576px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 992px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
 }

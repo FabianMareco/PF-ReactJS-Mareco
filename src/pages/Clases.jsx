@@ -142,15 +142,25 @@ const Clases = () => {
     </div>
   </div>
 
-  {/* Packs de Nutrición - grid 3 columnas al 80% */}
+  {/* Packs de Nutrición */}
   <div className="packs-container" style={{ display: !showMovimiento ? "block" : "none" }}>
-    <div className="packs-row-nutricion">
-      {nutricionPacks.map(pack => (
-        <div key={pack.id} className="pack-card-nutricion">
+    <div className="packs-row-normal">
+      {nutricionPacks.filter(p => p.id !== 8 && p.id !== 10).map(pack => (
+        <div key={pack.id} className="pack-card">
           <h5>🥗 {pack.nombre}</h5>
           <p>{pack.descripcion}</p>
           <div className="pack-price">💰 ${pack.precio.toLocaleString()}</div>
           <button className="btn btn-success" onClick={() => abrirModalCompra(pack)}>🛒 Comprar</button>
+        </div>
+      ))}
+    </div>
+    <div className="packs-row-highlight">
+      {nutricionPacks.filter(p => p.id === 8 || p.id === 10).map(pack => (
+        <div key={pack.id} className="pack-card-highlight">
+          <h5>⭐ {pack.nombre} ⭐</h5>
+          <p>{pack.descripcion}</p>
+          <div className="pack-price">💰 ${pack.precio.toLocaleString()}</div>
+          <button className="btn btn-warning btn-lg" onClick={() => abrirModalCompra(pack)}>🛒 Comprar ahora</button>
         </div>
       ))}
     </div>

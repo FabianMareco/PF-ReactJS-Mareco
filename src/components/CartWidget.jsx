@@ -1,16 +1,15 @@
-import { useCart } from "../context/CartContext";
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 export default function CartWidget() {
   const { totalItems } = useCart();
   if (totalItems === 0) return null;
   return (
-    <Link href="/cart" className="relative">
-      <span className="text-2xl">🛒</span>
-      {totalItems > 0 && (
-        <span className="absolute -top-2 -right-2 bg-white text-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold">
-          {totalItems}
-        </span>
-      )}
+    <Link to="/cart" className="btn btn-outline-light position-relative ms-3">
+      🛒
+      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-danger fw-bold">
+        {totalItems}
+      </span>
     </Link>
   );
 }

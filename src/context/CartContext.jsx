@@ -49,9 +49,10 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
   const totalItems = state.items.reduce((acc, i) => acc + i.quantity, 0);
   const totalPrice = state.items.reduce((acc, i) => acc + i.price * i.quantity, 0);
+  const isInCart = (id) => state.items.some(i => i.id === id);
 
   return (
-    <CartContext.Provider value={{ cart: state.items, addItem, removeItem, clearCart, totalItems, totalPrice }}>
+    <CartContext.Provider value={{ cart: state.items, addItem, removeItem, clearCart, totalItems, totalPrice, isInCart }}>
       {children}
     </CartContext.Provider>
   );
