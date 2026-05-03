@@ -68,9 +68,9 @@ const IngresoPlataforma = () => {
     }
     try {
       await sendPasswordResetEmail(auth, email);
-      Swal.fire({ icon: "success", title: "Email enviado 📧", text: `Revisá tu bandeja de entrada en ${email}.`, confirmButtonColor: "#28a745" });
+      Swal.fire({ icon: "success", title: "Email enviado 📧", text: `Revisá tu bandeja en ${email}.`, confirmButtonColor: "#28a745" });
     } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "No se pudo enviar el email. Verificá la dirección.", confirmButtonColor: "#dc3545" });
+      Swal.fire({ icon: "error", title: "Error", text: "No se pudo enviar el email.", confirmButtonColor: "#dc3545" });
     }
   };
 
@@ -86,19 +86,43 @@ const IngresoPlataforma = () => {
     minHeight: "100vh",
   };
 
+  const formStyle = {
+    background: "linear-gradient(135deg, rgba(220,53,69,0.92), rgba(176,42,55,0.95))",
+    borderRadius: "1.2rem",
+    padding: "2rem",
+    width: "100%",
+    maxWidth: "420px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+    color: "white",
+  };
+
+  const inputStyle = {
+    background: "rgba(255,255,255,0.15)",
+    border: "1px solid rgba(255,255,255,0.4)",
+    color: "white",
+    borderRadius: "8px",
+  };
+
   if (user) {
     return (
       <div style={pageStyle}>
         <div className="ingreso" data-aos="fade-up">
-          <div className="form-ingreso text-center">
-            {user.photoURL && <img src={user.photoURL} alt="avatar" className="rounded-circle mb-3" width="80" />}
-            <h4 className="mb-1">¡Bienvenido/a! 🎉</h4>
+          <div style={formStyle} className="text-center">
+            {user.photoURL && (
+              <img src={user.photoURL} alt="avatar" className="rounded-circle mb-3"
+                width="80" style={{ border: "3px solid gold" }} />
+            )}
+            <h4 className="fw-bold mb-1" style={{ color: "gold" }}>¡Bienvenido/a! 🎉</h4>
             <p className="fw-bold fs-5 mb-1">{user.displayName || "Usuario"}</p>
-            <p className="text-muted mb-3">{user.email}</p>
-            <div className="alert alert-success py-2">
+            <p style={{ color: "rgba(255,255,255,0.8)" }} className="mb-3">{user.email}</p>
+            <div className="alert" style={{ background: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.3)" }}>
               💃 Tenés acceso completo a la plataforma MUEVETE
             </div>
-            <button className="btn btn-danger w-100 mt-2" onClick={handleLogout}>Cerrar sesión</button>
+            <button className="btn w-100 mt-2 fw-bold"
+              style={{ background: "gold", color: "#b02a37" }}
+              onClick={handleLogout}>
+              Cerrar sesión
+            </button>
           </div>
         </div>
         <footer className="footer-edit bg-danger">
@@ -118,49 +142,70 @@ const IngresoPlataforma = () => {
   return (
     <div style={pageStyle}>
       <div className="ingreso">
-        <div data-aos="fade-up" className="text-center mb-2">
-          <h3 style={{ color: "white", textShadow: "2px 2px 4px black" }}>
-            {isRegister ? "Crear cuenta" : "Ingreso a la plataforma"}
+        <div data-aos="fade-down" style={formStyle}>
+
+          <h3 className="text-center fw-bold mb-4" style={{ color: "gold", letterSpacing: "1px" }}>
+            {isRegister ? "✨ Crear cuenta" : "🔐 Ingreso a la plataforma"}
           </h3>
-        </div>
-        <form className="form-ingreso" onSubmit={handleEmailAuth} data-aos="fade-down">
-          <div className="item-contacto">
-            <label>EMAIL</label>
-            <input type="email" className="form-control" value={email} onChange={e => setEmail(e.target.value)} required />
-          </div>
-          <div className="item-contacto">
-            <label>CONTRASEÑA</label>
-            <input type="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} required />
-          </div>
-          <div className="item-contacto d-flex flex-column gap-2 mb-0">
-            <button type="submit" className="btn btn-success w-100 fw-bold" disabled={loading}>
+
+          <form onSubmit={handleEmailAuth}>
+            <div className="mb-3">
+              <label className="fw-bold mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>EMAIL</label>
+              <input type="email" className="form-control" style={inputStyle}
+                placeholder="tu@email.com"
+                value={email} onChange={e => setEmail(e.target.value)} required />
+            </div>
+            <div className="mb-3">
+              <label className="fw-bold mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>CONTRASEÑA</label>
+              <input type="password" className="form-control" style={inputStyle}
+                placeholder="••••••••"
+                value={password} onChange={e => setPassword(e.target.value)} required />
+            </div>
+
+            <button type="submit" disabled={loading}
+              className="btn w-100 fw-bold mb-2"
+              style={{ background: "gold", color: "#b02a37", fontSize: "1rem" }}>
               {loading ? "⏳ Procesando..." : isRegister ? "CREAR CUENTA" : "INGRESAR"}
             </button>
+          </form>
 
-            <button type="button" onClick={handleGoogle}
-              className="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2 bg-white">
-              <svg width="18" height="18" viewBox="0 0 48 48">
-                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-              </svg>
-              Continuar con Google
-            </button>
-
-            <button type="button" className="btn btn-link text-danger p-0 text-center" onClick={handleReset}>
-              Olvidé mi contraseña
-            </button>
-            <hr className="my-2"/>
-            <p className="text-center mb-0 small">
-              {isRegister ? "¿Ya tenés cuenta?" : "¿No tenés cuenta?"}
-              <button type="button" className="btn btn-link text-danger p-0 ms-1 small fw-bold"
-                onClick={() => setIsRegister(!isRegister)}>
-                {isRegister ? "Iniciá sesión" : "Registrate"}
-              </button>
-            </p>
+          <div className="d-flex align-items-center my-2">
+            <hr style={{ flex: 1, borderColor: "rgba(255,255,255,0.3)" }} />
+            <span style={{ color: "rgba(255,255,255,0.6)", padding: "0 10px", fontSize: "0.85rem" }}>o</span>
+            <hr style={{ flex: 1, borderColor: "rgba(255,255,255,0.3)" }} />
           </div>
-        </form>
+
+          <button type="button" onClick={handleGoogle}
+            className="btn w-100 d-flex align-items-center justify-content-center gap-2 fw-bold mb-3"
+            style={{ background: "white", color: "#444", fontSize: "0.95rem" }}>
+            <svg width="18" height="18" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            Continuar con Google
+          </button>
+
+          <div className="text-center">
+            <button type="button" className="btn btn-link p-0 mb-2"
+              style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.85rem" }}
+              onClick={handleReset}>
+              ¿Olvidaste tu contraseña?
+            </button>
+          </div>
+
+          <hr style={{ borderColor: "rgba(255,255,255,0.2)" }} />
+          <p className="text-center mb-0" style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.8)" }}>
+            {isRegister ? "¿Ya tenés cuenta?" : "¿No tenés cuenta?"}
+            <button type="button" className="btn btn-link p-0 ms-1 fw-bold"
+              style={{ color: "gold", fontSize: "0.9rem" }}
+              onClick={() => setIsRegister(!isRegister)}>
+              {isRegister ? "Iniciá sesión" : "Registrate"}
+            </button>
+          </p>
+
+        </div>
       </div>
       <footer className="footer-edit bg-danger mt-5">
         <p className="texto-footer">Seguinos en nuestras redes sociales</p>
