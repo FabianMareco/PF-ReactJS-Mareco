@@ -79,20 +79,29 @@ const IngresoPlataforma = () => {
     setEmail(""); setPassword("");
   };
 
+  const pageStyle = {
+    backgroundImage: "url(/multimedia/D.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+  };
+
   if (user) {
     return (
-      <div className="ingreso">
-        <div data-aos="fade-up" className="text-center">
-          <h3>¡Bienvenido/a! 🎉</h3>
-          <div className="p-4 bg-light rounded shadow-sm mx-auto mt-4" style={{ maxWidth: "400px" }}>
+      <div style={pageStyle}>
+        <div className="ingreso" data-aos="fade-up">
+          <div className="form-ingreso text-center">
             {user.photoURL && <img src={user.photoURL} alt="avatar" className="rounded-circle mb-3" width="80" />}
+            <h4 className="mb-1">¡Bienvenido/a! 🎉</h4>
             <p className="fw-bold fs-5 mb-1">{user.displayName || "Usuario"}</p>
-            <p className="text-muted mb-4">{user.email}</p>
-            <div className="alert alert-success">Tenés acceso completo a la plataforma MUEVETE 💃</div>
-            <button className="btn btn-outline-danger w-100 mt-2" onClick={handleLogout}>Cerrar sesión</button>
+            <p className="text-muted mb-3">{user.email}</p>
+            <div className="alert alert-success py-2">
+              💃 Tenés acceso completo a la plataforma MUEVETE
+            </div>
+            <button className="btn btn-danger w-100 mt-2" onClick={handleLogout}>Cerrar sesión</button>
           </div>
         </div>
-        <footer className="footer-edit bg-danger mt-5">
+        <footer className="footer-edit bg-danger">
           <p className="texto-footer">Seguinos en nuestras redes sociales</p>
           <div className="redes">
             <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><i className="fa-brands fa-instagram"></i></a>
@@ -107,9 +116,13 @@ const IngresoPlataforma = () => {
   }
 
   return (
-    <>
+    <div style={pageStyle}>
       <div className="ingreso">
-        <div data-aos="fade-up"><h3>{isRegister ? "Crear cuenta" : "Ingreso a la plataforma"}</h3></div>
+        <div data-aos="fade-up" className="text-center mb-2">
+          <h3 style={{ color: "white", textShadow: "2px 2px 4px black" }}>
+            {isRegister ? "Crear cuenta" : "Ingreso a la plataforma"}
+          </h3>
+        </div>
         <form className="form-ingreso" onSubmit={handleEmailAuth} data-aos="fade-down">
           <div className="item-contacto">
             <label>EMAIL</label>
@@ -119,11 +132,13 @@ const IngresoPlataforma = () => {
             <label>CONTRASEÑA</label>
             <input type="password" className="form-control" value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
-          <div className="item-contacto d-flex flex-column gap-2">
-            <button type="submit" className="btn btn-success w-100" disabled={loading}>
+          <div className="item-contacto d-flex flex-column gap-2 mb-0">
+            <button type="submit" className="btn btn-success w-100 fw-bold" disabled={loading}>
               {loading ? "⏳ Procesando..." : isRegister ? "CREAR CUENTA" : "INGRESAR"}
             </button>
-            <button type="button" className="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2" onClick={handleGoogle}>
+
+            <button type="button" onClick={handleGoogle}
+              className="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2 bg-white">
               <svg width="18" height="18" viewBox="0 0 48 48">
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
                 <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -132,13 +147,15 @@ const IngresoPlataforma = () => {
               </svg>
               Continuar con Google
             </button>
-            <button type="button" className="btn btn-link text-danger p-0 mt-1" onClick={handleReset}>
+
+            <button type="button" className="btn btn-link text-danger p-0 text-center" onClick={handleReset}>
               Olvidé mi contraseña
             </button>
-            <hr />
-            <p className="text-center mb-1 small">
+            <hr className="my-2"/>
+            <p className="text-center mb-0 small">
               {isRegister ? "¿Ya tenés cuenta?" : "¿No tenés cuenta?"}
-              <button type="button" className="btn btn-link text-danger p-0 ms-1 small" onClick={() => setIsRegister(!isRegister)}>
+              <button type="button" className="btn btn-link text-danger p-0 ms-1 small fw-bold"
+                onClick={() => setIsRegister(!isRegister)}>
                 {isRegister ? "Iniciá sesión" : "Registrate"}
               </button>
             </p>
@@ -155,7 +172,7 @@ const IngresoPlataforma = () => {
         </div>
         <p className="texto-footer">todos los derechos reservados por copyright</p>
       </footer>
-    </>
+    </div>
   );
 };
 
