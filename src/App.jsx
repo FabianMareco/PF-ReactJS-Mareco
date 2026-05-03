@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar";
 import FloatingCart from "./components/FloatingCart";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Nosotros from "./pages/Nosotros";
 import Clases from "./pages/Clases";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
         <FloatingCart />
+      <ScrollToTop />
       </BrowserRouter>
     </CartProvider>
   );

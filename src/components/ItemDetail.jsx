@@ -79,7 +79,10 @@ const ItemDetail = ({ product }) => {
           {quantityAdded === 0 ? (
             <ItemCount stock={product.stock} initial={1} onAdd={handleOnAdd} disabled={needsTalle && !selectedTalle} />
           ) : (
-            <Link to="/cart" className="btn btn-success w-100 mt-3 fw-bold fs-5">🛒 Terminar mi compra</Link>
+            <div className="d-flex flex-column gap-2 mt-3">
+            <Link to="/cart" className="btn btn-success w-100 fw-bold fs-5">🛒 Terminar mi compra</Link>
+            <Link to="/merchandising" className="btn btn-outline-danger w-100 fw-bold">🛍️ Seguir comprando</Link>
+          </div>
           )}
         </div>
       </div>
