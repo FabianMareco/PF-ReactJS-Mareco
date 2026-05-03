@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import CartWidget from "./CartWidget";
 import "../styles/global.css";
 
 const Navbar = () => {
@@ -22,10 +21,10 @@ const Navbar = () => {
             <li className="nav-item"><Link className="nav-link" to="/merchandising">MERCHANDISING</Link></li>
             <li className="nav-item"><Link className="btn btn-success" to="/ingreso">INGRESO A PLATAFORMA</Link></li>
           </ul>
-          <CartWidget />
         </div>
       </div>
     </nav>
   );
 };
+
 export default Navbar;
