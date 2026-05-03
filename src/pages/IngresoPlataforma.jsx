@@ -124,7 +124,7 @@ const IngresoPlataforma = () => {
   if (user) {
     return (
       <div style={pageStyle}>
-        <div className="ingreso" data-aos="fade-up">
+        <div className="ingreso">
           <div style={{ ...formStyle, textAlign: "center" }}>
             {user.photoURL && (
               <img src={user.photoURL} alt="avatar" className="rounded-circle mb-3"
@@ -163,7 +163,7 @@ const IngresoPlataforma = () => {
   return (
     <div style={pageStyle}>
       <div className="ingreso">
-        <div data-aos="fade-down" style={formStyle}>
+        <div style={formStyle}>
           <h3 className="text-center fw-bold mb-4" style={{ color: "gold", letterSpacing: "1px" }}>
             {isRegister ? "✨ Crear cuenta" : "🔐 Ingreso a la plataforma"}
           </h3>
