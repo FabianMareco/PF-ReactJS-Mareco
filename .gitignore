@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 serviceAccountKey.json
 .env
+# Agentes y herramientas externas
+.agents/
+.junie/
+skills-lock.json
+.env.local
+serviceAccountKey.json
