@@ -39,11 +39,11 @@ const Merchandising = () => {
           return true;
         });
         const sorted = [...unicos].sort((a, b) => {
-          if (a.subcategory !== b.subcategory) return a.subcategory.localeCompare(b.subcategory);
-          return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" });
-        });
-        setAllProducts(sorted);
-        setFilteredProducts(sorted);
+  if (a.subcategory !== b.subcategory) return a.subcategory.localeCompare(b.subcategory);
+  return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" });
+});
+setAllProducts(sorted);
+setFilteredProducts(sorted);
       })
       .finally(() => setLoading(false));
   }, []);

@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useCart } from "../context/CartContext";
-
+ 
 const cardsData = [
   { title: "DANZA JAZZ", description: "Explora diversos estilos de la danza Jazz: Modern Jazz, Lyrical Jazz, Theatre Jazz, Contemporary Jazz. No importa si eres principiante o avanzado, hay una clase disponible para que empieces a aprender.", colorClass: "card-green-1" },
   { title: "DANZA CLÁSICA", description: "Descubre nuestras clases de danza clásica diseñadas para todos los niveles. Mejora tu técnica, flexibilidad y expresión artística, guiado por profesionales que te acompañarán en cada paso hacia el dominio del ballet.", colorClass: "card-green-2" },
@@ -24,24 +24,24 @@ const cardsData = [
   { title: "IMPROVISACIÓN", description: "La improvisación es una disciplina que se entrena, explora lugares desconocidos por el movimiento propio, invita a la reflexión y el descubrimiento constante. Cada clase es una invitación a jugar y aprender ¡Aprende a improvisar y llena tu danza de vida!", colorClass: "card-orange-2" },
   { title: "NUTRICIÓN PARA EL MOVIMIENTO Y EL BIENESTAR", description: "Somos el resultado de cómo nos alimentamos. Aprende como adquirir una correcta alimentación con los nutrientes necesarios para poder dar tu mejor versión cada día. Este curso te brindará las herramientas necesarias para llevar tu alimentación al siguiente nivel.", colorClass: "card-orange-3" }
 ];
-
+ 
 const Clases = () => {
   const [movimientoPacks, setMovimientoPacks] = useState([]);
   const [nutricionPacks, setNutricionPacks] = useState([]);
   const [showMovimiento, setShowMovimiento] = useState(true);
   const { addItem } = useCart();
-
+ 
   useEffect(() => {
     AOS.init({ duration: 1000 });
     setMovimientoPacks(packsData.filter(p => p.categoria === "clases"));
     setNutricionPacks(packsData.filter(p => p.categoria === "nutricion"));
   }, []);
-
+ 
   const scrollToPacks = () => {
     const packsSection = document.getElementById("packs-section");
     if (packsSection) packsSection.scrollIntoView({ behavior: "smooth" });
   };
-
+ 
   const abrirModalCompra = (pack) => {
     Swal.fire({
       title: `💃 ${pack.nombre}`,
@@ -86,7 +86,7 @@ const Clases = () => {
       }
     });
   };
-
+ 
   return (
     <><br />
       <div data-aos="fade-up"><h3>Clases</h3></div>
@@ -102,7 +102,7 @@ const Clases = () => {
       </div>
       <div data-aos="fade-up"><p className="texto-contenido">En las clases de MUEVETE encontrarás una experiencia única que combina diversidad y accesibilidad. Con múltiples opciones que abarcan desde el ballet y danza contemporánea hasta yoga y stretching, la plataforma en línea de MUEVETE está diseñada para todos los niveles, ya seas principiante o avanzado. Cada lección es impartida por profesionales altamente capacitados, que guían a los alumnos a través de técnicas, ejercicios y prácticas creativas. Los beneficios incluyen una mejora en la flexibilidad, la fuerza, y la conexión mente-cuerpo, así como la posibilidad de aprender a tu propio ritmo, desde cualquier lugar con acceso a internet. La variedad de estilos asegura que siempre encuentres una clase que se adapte a tus objetivos y preferencias, haciéndote sentir en plenitud y motivación.</p></div>
       <br />
-
+ 
       {/* 15 cards con degradados y texto completo */}
       <div className="container my-4">
         <h3 className="text-center mb-4">Nuestras disciplinas</h3>
@@ -121,8 +121,8 @@ const Clases = () => {
 ))}
         </div>
       </div>
-
-
+ 
+ 
 {/* Sección de packs */}
 <section className="packs-section" id="packs-section">
   <div data-aos="fade-up"><h3>✨ Elige tu pack ✨</h3></div>
@@ -139,7 +139,7 @@ const Clases = () => {
       🥗 COMPRAR CURSOS O ASESORÍAS
     </button>
   </div>
-
+ 
   {/* Packs de Movimiento */}
   <div className="packs-container" style={{ display: showMovimiento ? "block" : "none" }}>
     {/* Clases sueltas, pack 4, pack 8 - tamaño normal */}
@@ -166,7 +166,7 @@ const Clases = () => {
       ))}
     </div>
   </div>
-
+ 
   {/* Packs de Nutrición */}
   <div className="packs-container" style={{ display: !showMovimiento ? "block" : "none" }}>
     <div className="packs-row-normal">
@@ -191,7 +191,7 @@ const Clases = () => {
     </div>
   </div>
 </section>
-
+ 
       <footer className="footer-edit bg-danger mt-5">
         <p className="texto-footer">Seguinos en nuestras redes sociales</p>
         <div className="redes">
@@ -205,5 +205,5 @@ const Clases = () => {
     </>
   );
 };
-
+ 
 export default Clases;
