@@ -2,6 +2,7 @@ import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createOrder } from "../services/firestore";
+import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
@@ -16,16 +17,40 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const handleClear = () => {
-    if (window.confirm("¿Vaciar todo el carrito?")) {
-      clearCart();
-      localStorage.removeItem("cart");
-      toast("Carrito vaciado", "#ff9800");
-    }
+    Swal.fire({
+      title: "¿Vaciar el carrito?",
+      text: "Se eliminarán todos los productos agregados.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "Cancelar",
+    }).then(result => {
+      if (result.isConfirmed) {
+        clearCart();
+        localStorage.removeItem("cart");
+        toast("Carrito vaciado", "#ff9800");
+      }
+    });
   };
 
   const handleRemove = (id, name) => {
-    removeItem(id);
-    toast(`"${name}" eliminado`, "#f44336");
+    Swal.fire({
+      title: "¿Eliminar producto?",
+      html: `¿Querés quitar <strong>${name}</strong> del carrito?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then(result => {
+      if (result.isConfirmed) {
+        removeItem(id);
+        toast(`"${name}" eliminado`, "#f44336");
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -38,7 +63,6 @@ export default function Cart() {
       toast("Email inválido", "#f44336");
       return;
     }
-
     setLoading(true);
     try {
       const order = {
@@ -51,7 +75,6 @@ export default function Cart() {
         })),
         total: totalPrice,
       };
-
       const id = await createOrder(order);
       setOrderId(id);
       clearCart();
@@ -64,7 +87,6 @@ export default function Cart() {
     }
   };
 
-  // Pantalla de éxito
   if (orderId) {
     return (
       <div className="container text-center mt-5">
@@ -72,9 +94,7 @@ export default function Cart() {
         <p className="lead">Tu número de orden es:</p>
         <h3 className="text-danger fw-bold">{orderId}</h3>
         <p>Guardá este número para hacer seguimiento de tu pedido.</p>
-        <button className="btn btn-danger mt-3" onClick={() => navigate("/")}>
-          Volver al inicio
-        </button>
+        <button className="btn btn-danger mt-3" onClick={() => navigate("/")}>Volver al inicio</button>
       </div>
     );
   }
@@ -91,31 +111,28 @@ export default function Cart() {
   return (
     <div className="container my-4">
       <h2 className="text-center mb-4">🛒 Carrito de compras</h2>
-
       <table className="table table-bordered">
         <thead className="table-dark">
           <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio unitario</th>
-            <th>Subtotal</th>
-            <th></th>
+            <th>Producto</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th><th></th>
           </tr>
         </thead>
         <tbody>
           {cart.map(item => (
             <tr key={item.id}>
-              <td>{item.name}</td>
+              <td>
+                {item.name}
+                {item.esRegalo && (
+                  <span className="badge bg-warning text-dark ms-2">
+                    🎁 Regalo{item.nombreRegalo ? ` para ${item.nombreRegalo}` : ""}
+                  </span>
+                )}
+              </td>
               <td>{item.quantity}</td>
               <td>${item.price?.toLocaleString()}</td>
               <td>${(item.price * item.quantity)?.toLocaleString()}</td>
               <td>
-                <button
-                  className="btn btn-sm btn-outline-danger"
-                  onClick={() => handleRemove(item.id, item.name)}
-                >
-                  🗑️
-                </button>
+                <button className="btn btn-sm btn-outline-danger" onClick={() => handleRemove(item.id, item.name)}>🗑️</button>
               </td>
             </tr>
           ))}
@@ -128,49 +145,23 @@ export default function Cart() {
           </tr>
         </tfoot>
       </table>
-
       <div className="d-flex justify-content-between align-items-start gap-4 flex-wrap mt-4">
-        <button className="btn btn-warning" onClick={handleClear}>
-          🗑️ Vaciar carrito
-        </button>
-
+        <button className="btn btn-warning" onClick={handleClear}>🗑️ Vaciar carrito</button>
         <form onSubmit={handleSubmit} className="flex-grow-1" style={{ maxWidth: "500px" }}>
           <h4 className="mb-3">Datos del comprador</h4>
           <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Nombre completo"
-              value={buyer.name}
-              onChange={e => setBuyer({ ...buyer, name: e.target.value })}
-              required
-            />
+            <input type="text" className="form-control" placeholder="Nombre completo"
+              value={buyer.name} onChange={e => setBuyer({ ...buyer, name: e.target.value })} required />
           </div>
           <div className="mb-3">
-            <input
-              type="tel"
-              className="form-control"
-              placeholder="Teléfono"
-              value={buyer.phone}
-              onChange={e => setBuyer({ ...buyer, phone: e.target.value })}
-              required
-            />
+            <input type="tel" className="form-control" placeholder="Teléfono"
+              value={buyer.phone} onChange={e => setBuyer({ ...buyer, phone: e.target.value })} required />
           </div>
           <div className="mb-3">
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Email"
-              value={buyer.email}
-              onChange={e => setBuyer({ ...buyer, email: e.target.value })}
-              required
-            />
+            <input type="email" className="form-control" placeholder="Email"
+              value={buyer.email} onChange={e => setBuyer({ ...buyer, email: e.target.value })} required />
           </div>
-          <button
-            type="submit"
-            className="btn btn-success w-100 fw-bold"
-            disabled={loading}
-          >
+          <button type="submit" className="btn btn-success w-100 fw-bold" disabled={loading}>
             {loading ? "⏳ Procesando..." : "✅ Finalizar compra"}
           </button>
         </form>

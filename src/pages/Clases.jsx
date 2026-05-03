@@ -45,19 +45,44 @@ const Clases = () => {
   const abrirModalCompra = (pack) => {
     Swal.fire({
       title: `💃 ${pack.nombre}`,
-      html: `<input id="cantidad" type="number" min="1" max="10" value="1" class="swal2-input" style="margin:10px auto"><div style="margin-top:10px"><label><input type="checkbox" id="esRegalo"> 🎁 Es un regalo</label></div>`,
+      html: `
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px">Cantidad</label>
+            <input id="cantidad" type="number" min="1" max="10" value="1" class="swal2-input" style="margin:0;width:100%" />
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff8e1;border-radius:8px;border:1px solid #ffc107">
+            <input type="checkbox" id="esRegalo" style="width:18px;height:18px;cursor:pointer" />
+            <label for="esRegalo" style="cursor:pointer;margin:0;font-weight:600">🎁 Es un regalo</label>
+          </div>
+          <div id="campoRegalo" style="display:none">
+            <label style="font-weight:600;display:block;margin-bottom:4px">¿A nombre de quién? 💌</label>
+            <input id="nombreRegalo" type="text" class="swal2-input" placeholder="Nombre del destinatario" style="margin:0;width:100%" />
+          </div>
+        </div>`,
       showCancelButton: true,
       confirmButtonText: "Agregar al carrito",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#28a745",
+      didOpen: () => {
+        document.getElementById("esRegalo").addEventListener("change", (e) => {
+          document.getElementById("campoRegalo").style.display = e.target.checked ? "block" : "none";
+        });
+      },
       preConfirm: () => {
         const cantidad = parseInt(document.getElementById("cantidad").value);
         if (isNaN(cantidad) || cantidad < 1) return Swal.showValidationMessage("Cantidad inválida");
-        return { cantidad, esRegalo: document.getElementById("esRegalo").checked };
+        const esRegalo = document.getElementById("esRegalo").checked;
+        const nombreRegalo = esRegalo ? document.getElementById("nombreRegalo").value.trim() : "";
+        if (esRegalo && !nombreRegalo) return Swal.showValidationMessage("Escribí el nombre del destinatario");
+        return { cantidad, esRegalo, nombreRegalo };
       }
     }).then(result => {
       if (result.isConfirmed) {
-        const { cantidad, esRegalo } = result.value;
-        addItem({ id: pack.id, name: pack.nombre, price: pack.precio, type: "pack", category: pack.categoria, esRegalo }, cantidad);
-        Toastify({ text: `✅ ${pack.nombre} agregado`, duration: 2000, gravity: "bottom", position: "right", style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+        const { cantidad, esRegalo, nombreRegalo } = result.value;
+        addItem({ id: pack.id, name: pack.nombre, price: pack.precio, type: "pack", category: pack.categoria, esRegalo, nombreRegalo }, cantidad);
+        const msg = esRegalo ? `🎁 Regalo para ${nombreRegalo} agregado` : `✅ ${pack.nombre} agregado`;
+        Toastify({ text: msg, duration: 2000, gravity: "bottom", position: "right", style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
       }
     });
   };
