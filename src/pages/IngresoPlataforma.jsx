@@ -18,13 +18,17 @@ const provider = new GoogleAuthProvider();
 const IngresoPlataforma = () => {
   useEffect(() => { AOS.init({ duration: 1000 }); }, []);
   const [user, setUser]             = useState(null);
+  const [authReady, setAuthReady]   = useState(false);
   const [email, setEmail]           = useState("");
   const [password, setPassword]     = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading]       = useState(false);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, u => setUser(u));
+    const unsub = onAuthStateChanged(auth, u => {
+      setUser(u);
+      setAuthReady(true);
+    });
     return unsub;
   }, []);
 
@@ -103,23 +107,39 @@ const IngresoPlataforma = () => {
     borderRadius: "8px",
   };
 
+  // Mientras Firebase verifica si hay sesión activa
+  if (!authReady) {
+    return (
+      <div style={pageStyle}>
+        <div className="ingreso">
+          <div style={{ ...formStyle, textAlign: "center" }}>
+            <p style={{ color: "gold", fontSize: "1.2rem" }}>⏳ Cargando...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Usuario logueado
   if (user) {
     return (
       <div style={pageStyle}>
         <div className="ingreso" data-aos="fade-up">
-          <div style={formStyle} className="text-center">
+          <div style={{ ...formStyle, textAlign: "center" }}>
             {user.photoURL && (
               <img src={user.photoURL} alt="avatar" className="rounded-circle mb-3"
                 width="80" style={{ border: "3px solid gold" }} />
             )}
             <h4 className="fw-bold mb-1" style={{ color: "gold" }}>¡Bienvenido/a! 🎉</h4>
-            <p className="fw-bold fs-5 mb-1">{user.displayName || "Usuario"}</p>
+            <p className="fw-bold fs-5 mb-1" style={{ color: "white" }}>
+              {user.displayName || user.email.split("@")[0]}
+            </p>
             <p style={{ color: "rgba(255,255,255,0.8)" }} className="mb-3">{user.email}</p>
-            <div className="alert" style={{ background: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.3)" }}>
+            <div className="mb-3 p-2 rounded" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)" }}>
               💃 Tenés acceso completo a la plataforma MUEVETE
             </div>
-            <button className="btn w-100 mt-2 fw-bold"
-              style={{ background: "gold", color: "#b02a37" }}
+            <button className="btn w-100 fw-bold"
+              style={{ background: "gold", color: "#b02a37", fontSize: "1rem" }}
               onClick={handleLogout}>
               Cerrar sesión
             </button>
@@ -139,15 +159,14 @@ const IngresoPlataforma = () => {
     );
   }
 
+  // Formulario login / registro
   return (
     <div style={pageStyle}>
       <div className="ingreso">
         <div data-aos="fade-down" style={formStyle}>
-
           <h3 className="text-center fw-bold mb-4" style={{ color: "gold", letterSpacing: "1px" }}>
             {isRegister ? "✨ Crear cuenta" : "🔐 Ingreso a la plataforma"}
           </h3>
-
           <form onSubmit={handleEmailAuth}>
             <div className="mb-3">
               <label className="fw-bold mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>EMAIL</label>
@@ -161,7 +180,6 @@ const IngresoPlataforma = () => {
                 placeholder="••••••••"
                 value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
-
             <button type="submit" disabled={loading}
               className="btn w-100 fw-bold mb-2"
               style={{ background: "gold", color: "#b02a37", fontSize: "1rem" }}>
@@ -204,7 +222,6 @@ const IngresoPlataforma = () => {
               {isRegister ? "Iniciá sesión" : "Registrate"}
             </button>
           </p>
-
         </div>
       </div>
       <footer className="footer-edit bg-danger mt-5">
