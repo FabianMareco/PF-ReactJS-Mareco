@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 // src/pages/Home.jsx
 import { useEffect } from "react";
 import AOS from "aos";
@@ -47,7 +48,7 @@ const Home = () => {
         <br />
         <div data-aos="fade-down">
           <h4 className="link-prefooter">Aprender nunca fue tan fácil como ahora en ¡MUEVETE!</h4>
-          <h4 className="link-prefooter">Hay una clase preparada para que puedas empezar a aprender <a href="/ingreso">¡YA!</a></h4>
+          <h4 className="link-prefooter">Hay una clase preparada para que puedas empezar a aprender <Link to="/ingreso">¡YA!</Link></h4>
         </div>
       </aside>
       <footer className="footer-edit bg-danger">
