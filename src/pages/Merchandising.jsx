@@ -75,7 +75,7 @@ setFilteredProducts(sorted);
   return (
     <>
       <div className="container my-4">
-        <h2 className="text-center">✨ Merchandising Store ✨</h2>
+        <h3>✨ Merchandising Store ✨</h3>
         <p className="text-center mb-4">Todo lo que necesitas para acompañar tu movimiento</p>
         <div className="row justify-content-center mb-4">
           <div className="col-md-6">
