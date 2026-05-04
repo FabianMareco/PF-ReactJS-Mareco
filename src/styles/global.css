@@ -715,3 +715,19 @@ h4 {
   padding: 4px 8px !important;
   white-space: nowrap;
 }
+
+/* Fix legibilidad cards clases - fondos claros necesitan texto oscuro */
+.card-yellow-2 .card-title, .card-yellow-2 .card-text,
+.card-yellow-3 .card-title, .card-yellow-3 .card-text,
+.card-blue-3 .card-title,  .card-blue-3 .card-text,
+.card-orange-3 .card-title, .card-orange-3 .card-text {
+  color: #1a1a1a !important;
+  text-shadow: none;
+}
+
+/* Cards de merchandising (fondo blanco) - texto oscuro */
+.products-grid .card-title,
+.products-grid .card-text {
+  color: #1a1a1a !important;
+  text-shadow: none;
+}
