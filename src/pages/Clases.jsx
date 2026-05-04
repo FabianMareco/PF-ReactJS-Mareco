@@ -99,7 +99,7 @@ const Clases = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div><br />
       <div data-aos="fade-up"><p className="texto-contenido">En las clases de MUEVETE encontrarás una experiencia única que combina diversidad y accesibilidad. Con múltiples opciones que abarcan desde el ballet y danza contemporánea hasta yoga y stretching, la plataforma en línea de MUEVETE está diseñada para todos los niveles, ya seas principiante o avanzado. Cada lección es impartida por profesionales altamente capacitados, que guían a los alumnos a través de técnicas, ejercicios y prácticas creativas. Los beneficios incluyen una mejora en la flexibilidad, la fuerza, y la conexión mente-cuerpo, así como la posibilidad de aprender a tu propio ritmo, desde cualquier lugar con acceso a internet. La variedad de estilos asegura que siempre encuentres una clase que se adapte a tus objetivos y preferencias, haciéndote sentir en plenitud y motivación.</p></div>
       <br />
  
